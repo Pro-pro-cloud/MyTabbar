@@ -1,7 +1,8 @@
 <template>
 <div class="tab-bar-item">
-  <slot name="item-icon"></slot>
-  <slot name="item-text"></slot>
+  <div v-if="!isActive"><slot  name="item-icon"></slot></div>
+  <div v-else><slot  name="item-icon-active"></slot></div>
+  <div :class="{active : isActive}"><slot name="item-text"></slot></div>
   <!-- <img src="../../assets/img/tabbar/home.svg" alt="">
   <div>首页</div> -->
 </div>
@@ -9,7 +10,12 @@
 
 <script>
 export default {
-  name: 'TabbarItem'
+  name: 'TabbarItem',
+  data () {
+    return {
+      isActive: false
+    }
+  }
 }
 </script>
 
@@ -27,5 +33,9 @@ export default {
   margin-bottom: 2px;
   font-size: 14px;
   vertical-align: middle;
+}
+
+.active {
+  color: red;
 }
 </style>
