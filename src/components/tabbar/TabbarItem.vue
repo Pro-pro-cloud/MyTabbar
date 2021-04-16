@@ -2,7 +2,7 @@
 <div class="tab-bar-item" @click="itemClick">
   <div v-if="!isActive"><slot  name="item-icon"></slot></div>
   <div v-else><slot  name="item-icon-active"></slot></div>
-  <div :class="{active : isActive}"><slot name="item-text"></slot></div>
+  <div :style="activeStyle"><slot name="item-text"></slot></div>
   <!-- <img src="../../assets/img/tabbar/home.svg" alt="">
   <div>首页</div> -->
 </div>
@@ -12,11 +12,23 @@
 export default {
   name: 'TabbarItem',
   props: {
-    path: String
+    path: String,
+    activeColor: {
+      type: String,
+      default: 'red'
+    }
   },
   data () {
     return {
-      isActive: false
+      // isActive: false
+    }
+  },
+  computed: {
+    isActive () {
+      return this.$route.path.includes(this.path)
+    },
+    activeStyle () {
+      return this.isActive ? { color: this.activeColor } : {}
     }
   },
   methods: {
@@ -43,7 +55,7 @@ export default {
   vertical-align: middle;
 }
 
-.active {
+/* .active {
   color: red;
-}
+} */
 </style>
